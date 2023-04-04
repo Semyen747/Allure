@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+group 'ru.netology'
+version '1.0-SNAPSHOT'
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+allure {
+    version = '2.20.1'
+    //Если используется JUnit5, то добавляется:
+    useJUnit5 { version = '2.20.1' }
+    //версия должна совпадать с версией allure
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.9.2'
+    testImplementation 'com.codeborne:selenide:6.2.0'
+    testImplementation 'io.qameta.allure:allure-selenide:2.21.0'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.36'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+}
